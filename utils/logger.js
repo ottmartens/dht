@@ -3,15 +3,18 @@ const { createLogger, transports, format } = require('winston');
 module.exports = createLogger({
 	transports: [new transports.Console({ colorize: true, level: 'debug' })],
 	format: format.combine(
-        format.colorize(),
-		format.printf(({ message, level }) => {
+		format.timestamp({ format: 'HH:mm:ss' }),
+		format.colorize(),
+		format.printf(({ message, level, timestamp }) => {
 			const nodeId = process.env.id;
 
 			if (nodeId) {
-				return `[${level}]\t Node ${nodeId.padEnd(4)} - ${message}`;
+				return `${timestamp} [${level}] Node ${nodeId.padEnd(
+					4
+				)} - ${message}`;
 			}
 
-			return `[${level}]\t\t   - ${message}`;
+			return `${timestamp} [${level}] \t   - ${message}`;
 		})
 	),
 });

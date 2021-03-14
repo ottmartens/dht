@@ -12,6 +12,7 @@ async function bootstrap() {
 
         logger.info(`Spawning node ${node}`)
 
+
 		spawnNode({
 			id: node,
 			shortcuts: nodeShortcuts,

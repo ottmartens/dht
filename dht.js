@@ -1,4 +1,4 @@
-const { parseInputFile, spawnNode } = require('./utils');
+const { parseInputFile, spawnNode, logger } = require('./utils');
 
 async function bootstrap() {
 	const inputFile = process.argv[2];
@@ -9,6 +9,8 @@ async function bootstrap() {
 		const nodeShortcuts = shortcuts.filter(
 			(shortcut) => shortcut.start === node
 		);
+
+        logger.info(`Spawning node ${node}`)
 
 		spawnNode({
 			id: node,

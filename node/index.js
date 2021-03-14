@@ -1,5 +1,9 @@
-console.log(`Hello, i am ${process.env.id} and i'm alive`);
+const logger = require('../utils/logger');
+
+logger.debug('Node is started');
 
 setTimeout(() => {
-	console.log(process.env.id, 'is dying');
+	process.exit(0);
 }, 2000);
+
+process.on('exit', () => logger.debug('Node is shutting down'));

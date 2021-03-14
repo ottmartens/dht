@@ -1,0 +1,19 @@
+{
+	"name": "dht",
+	"version": "1.0.0",
+	"description": "Distributed hash table w/ chord overlay network",
+	"main": "dht.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ottmartens/dht.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"homepage": "https://github.com/ottmartens/dht#readme",
+	"dependencies": {
+		"winston": "^3.3.3"
+	}
+}

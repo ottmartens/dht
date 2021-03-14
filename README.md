@@ -10,6 +10,6 @@ run `npm install`
 
 ### Start
 
-`node dht.js input.txt`
+`npm start input.txt`
 
 

@@ -2,8 +2,9 @@
 	"name": "dht",
 	"version": "1.0.0",
 	"description": "Distributed hash table w/ chord overlay network",
-	"main": "dht.js",
+	"main": "src/dht.js",
 	"scripts": {
+		"start": "node src/dht.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {

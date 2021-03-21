@@ -28,7 +28,7 @@ async function bootstrap() {
 			gatewayNode,
 		});
 
-		await delay(100);
+		await delay(200);
 	}
 }
 

@@ -1,4 +1,9 @@
-const { parseInputFile, spawnNode, logger } = require('./utils');
+const {
+	parseInputFile,
+	spawnNode,
+	logger,
+	helpers: { delay },
+} = require('./utils');
 
 let gatewayNode = null;
 
@@ -22,6 +27,8 @@ async function bootstrap() {
 			keySpace,
 			gatewayNode,
 		});
+
+		await delay(100);
 	}
 }
 

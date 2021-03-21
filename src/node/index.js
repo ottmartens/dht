@@ -2,6 +2,7 @@ const logger = require('../utils/logger');
 const express = require('express');
 
 const { id } = require('./nodeData');
+const broadcastJoining = require('./broadcastJoining');
 
 const app = express();
 
@@ -9,6 +10,6 @@ require('./routes')(app);
 
 const port = 3000 + id;
 
-app.listen(port, () => logger.debug(`Listening on port ${port}`));
+app.listen(port, () => broadcastJoining());
 
 process.on('exit', () => logger.debug('Node is shutting down'));

@@ -15,6 +15,7 @@
 	"license": "ISC",
 	"homepage": "https://github.com/ottmartens/dht#readme",
 	"dependencies": {
+		"express": "4.17.1",
 		"winston": "^3.3.3"
 	}
 }

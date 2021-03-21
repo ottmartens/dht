@@ -1,9 +1,15 @@
 const logger = require('../utils/logger');
+const express = require('express');
 
-logger.debug('Node is started');
+const routes = require('./routes');
 
-setTimeout(() => {
-	process.exit(0);
-}, 2000);
+const app = express();
+
+app.use(routes);
+
+const port = 3000 + Number(process.env.id);
+
+app.listen(port, () => logger.debug(`Listening on port ${port}`));
+
 
 process.on('exit', () => logger.debug('Node is shutting down'));

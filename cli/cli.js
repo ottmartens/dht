@@ -54,12 +54,12 @@ program
     });
 
 program
-    .command('lookup <targetId> <nodeId>')
-    .description('lookup for a node')
+    .command('shortcut <fromId> <toId> <nodeId>')
+    .description('shortcut from a node to another')
     //.option('-s, --setup_mode <mode>', 'Which setup mode to use', 'normal')
-    .action(async (targetId, nodeId, options) => {
+    .action(async (fromId, toId, nodeId) => {
 
-        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/lookup?target=${Number(targetId)}`)
+        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/new-shortcut?from=${Number(fromId)}&to=${Number(toId)}`)
         console.log(response.data)
     });
 

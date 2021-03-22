@@ -1,4 +1,3 @@
-const logger = require('../utils/logger');
 const express = require('express');
 
 const { id } = require('./nodeData');
@@ -13,5 +12,3 @@ require('./routes')(app);
 const port = 3000 + id;
 
 app.listen(port, () => broadcastJoining());
-
-process.on('exit', () => logger.info(`Node ${id} has left`));

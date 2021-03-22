@@ -14,4 +14,4 @@ const port = 3000 + id;
 
 app.listen(port, () => broadcastJoining());
 
-process.on('exit', () => logger.debug('Node is shutting down'));
+process.on('exit', () => logger.info(`Node ${id} has left`));

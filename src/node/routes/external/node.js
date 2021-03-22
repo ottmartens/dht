@@ -44,7 +44,14 @@ module.exports = async (req, res) => {
 		//because in the previous statement we eliminated the possibility of the shortcut being bigger than the target
 
 		try {
-			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/node?target=${target}&jumps=${jumps + 1}&isSuccessorTarget=${isSuccessorTarget && !usableShortcut}`)
+			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/node`,
+				{
+					params: {
+						target,
+						jumps: jumps + 1,
+						isSuccessorTarget: isSuccessorTarget && !usableShortcut
+					}
+				})
 			res.send(
 				response.data
 			)

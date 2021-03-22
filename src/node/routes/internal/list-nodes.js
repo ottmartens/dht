@@ -15,8 +15,11 @@ module.exports = async (req, res) => {
 		logger.debug('Listing all nodes from origin ' + req.query.origin);
 		try {
 			const response = await axios.get(
-				`${getUrlForNode(nodeData.successor)}/list-nodes?origin=${req.query.origin
-				}`
+				`${getUrlForNode(nodeData.successor)}/list-nodes`, {
+				params: {
+					origin: req.query.origin
+				}
+			}
 			);
 			res.send(response.data.concat([nodeObject]));
 		} catch (err) {

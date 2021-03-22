@@ -8,7 +8,11 @@ module.exports = async (req, res) => {
 
 	try {
 		const response = await axios.get(
-			`${getUrlForNode(nodeData.successor)}/list-nodes?origin=${nodeData.id}`
+			`${getUrlForNode(nodeData.successor)}/list-nodes`, {
+			params: {
+				origin: nodeData.id
+			}
+		}
 		);
 		res.send(
 			response.data

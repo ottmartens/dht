@@ -53,5 +53,14 @@ program
         console.log(response.data)
     });
 
+program
+    .command('lookup <targetId> <nodeId>')
+    .description('lookup for a node')
+    //.option('-s, --setup_mode <mode>', 'Which setup mode to use', 'normal')
+    .action(async (targetId, nodeId, options) => {
+
+        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/lookup?target=${Number(targetId)}`)
+        console.log(response.data)
+    });
 
 program.parseAsync(process.argv);

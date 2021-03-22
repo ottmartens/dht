@@ -4,7 +4,8 @@ const axios = require('axios');
 const { getUrlForNode } = require('../../utils/helpers');
 
 module.exports = async (req, res) => {
-	const target = Number(req.query.target);
+	const target = Number(req.query.from);
+	const to = Number(req.query.to);
 	const jumps = req.query.jumps ? Number(req.query.jumps) : 0;
 	const isTarget = req.query.isSuccessorTarget === 'true' ? true : false;
 
@@ -41,10 +42,11 @@ module.exports = async (req, res) => {
 		//because in the previous statement we eliminated the possibility of the shortcut being bigger than the target
 
 		try {
-			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/lookup`,
+			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/new-shortcut`,
 				{
 					params: {
-						target,
+						from: target,
+						to,
 						jumps: jumps + 1,
 						isSuccessorTarget: isSuccessorTarget && !usableShortcut
 					}
@@ -56,9 +58,16 @@ module.exports = async (req, res) => {
 			logger.error(err);
 		}
 	} else {
-		logger.debug('Found the correct node!');
+		logger.debug('Found the correct node for shortcut updating!');
+		logger.debug("To " + to + " from " + target)
+
+		nodeData.shortcuts = nodeData.shortcuts.concat([{
+			start: target,
+			end: to
+		}])
+
 		res.send({
-			message: `Data stored in node ${nodeData.id}, ${jumps} requests sent`,
+			message: `Shortcut added: ${JSON.stringify(nodeData.shortcuts)}`,
 		});
 	}
 };

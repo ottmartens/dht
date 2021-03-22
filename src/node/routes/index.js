@@ -1,6 +1,7 @@
 module.exports = (app) => {
 	// external endpoints
 	app.get('/lookup', require('./external/lookup'));
+	app.get('/new-shortcut', require('./external/new-shortcut'));
 	app.get('/list', require('./external/list'));
 	app.post('/leave', require('./external/leave'));
 

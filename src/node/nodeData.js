@@ -3,7 +3,7 @@ const nodeData = {
 	successor: null,
 	nextSuccessor: null,
 
-	keySpace: process.env.keySpace ? JSON.parse(process.env.keySpace): null,
+	keySpace: process.env.keySpace ? JSON.parse(process.env.keySpace) : null,
 	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : null,
 };
 
@@ -14,6 +14,9 @@ module.exports = {
 	},
 	set nextSuccessor(nextSuccessor) {
 		nodeData.nextSuccessor = nextSuccessor;
+	},
+	set shortcuts(shortcuts) {
+		nodeData.shortcuts = shortcuts;
 	},
 	get successor() {
 		return nodeData.successor;

@@ -37,7 +37,7 @@ program
     //.option('-s, --setup_mode <mode>', 'Which setup mode to use', 'normal')
     .action(async (nodeId, options) => {
 
-        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/nodes`)
+        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/list`)
         response.data.forEach(node => {
             console.log(`${node.node}:${node.shortcuts.map(shortcut => shortcut.end).join(",")}, S-${node.successor}, NS-${node.nextSuccessor}`)
         });
@@ -49,7 +49,7 @@ program
     //.option('-s, --setup_mode <mode>', 'Which setup mode to use', 'normal')
     .action(async (targetId, nodeId, options) => {
 
-        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/node?target=${Number(targetId)}`)
+        const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/lookup?target=${Number(targetId)}`)
         console.log(response.data)
     });
 

@@ -1,6 +1,8 @@
 const logger = require('../../../utils/logger');
 const nodeData = require('../../nodeData');
 const axios = require('axios');
+const { getUrlForNode } = require('../../utils/helpers');
+
 
 module.exports = async (req, res) => {
 	const target = Number(req.query.target);
@@ -35,14 +37,14 @@ module.exports = async (req, res) => {
 				}
 			});
 		}
-		
+
 		usableShortcut && logger.debug('Will use shortcut to node ' + usableShortcut);
 
 		//shortcut can never be the target (unless its id is equal to the target), 
 		//because in the previous statement we eliminated the possibility of the shortcut being bigger than the target
 
 		try {
-			const response = await axios.get(`http://localhost:${3000 + (usableShortcut || nodeData.successor)}/node?target=${target}&jumps=${jumps + 1}&isSuccessorTarget=${isSuccessorTarget && !usableShortcut}`)
+			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/node?target=${target}&jumps=${jumps + 1}&isSuccessorTarget=${isSuccessorTarget && !usableShortcut}`)
 			res.send(
 				response.data
 			)

@@ -1,6 +1,7 @@
 const logger = require('../../../utils/logger');
 const nodeData = require('../../nodeData');
 const axios = require('axios');
+const { getUrlForNode } = require('../../utils/helpers');
 
 module.exports = async (req, res) => {
 	const nodeObject = {
@@ -14,8 +15,7 @@ module.exports = async (req, res) => {
 		logger.debug('Listing all nodes from origin ' + req.query.origin);
 		try {
 			const response = await axios.get(
-				`http://localhost:${3000 + nodeData.successor}/list-nodes?origin=${
-					req.query.origin
+				`${getUrlForNode(nodeData.successor)}/list-nodes?origin=${req.query.origin
 				}`
 			);
 			res.send(response.data.concat([nodeObject]));

@@ -9,7 +9,15 @@ module.exports = {
 	join: {
 		args: ['node id'],
 		validate: (commandArgs) => {
-			return commandArgs.length === 1 && !isNaN(Number(commandArgs[0]));
+			if (commandArgs.length !== 1 || isNaN(Number(commandArgs[0]))) {
+				return false;
+			}
+
+			const key = Number(commandArgs[0]);
+
+			const [start, end] = stats.getKeySpace();
+
+			return key >= start && key <= end;
 		},
 		handler: async (nodeId) => {
 			const id = Number(nodeId);
@@ -21,7 +29,6 @@ module.exports = {
 			});
 
 			stats.setNodes(stats.getNodes().concat([id]));
-			console.log(stats.getNodes());
 		},
 	},
 

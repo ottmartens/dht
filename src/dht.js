@@ -1,4 +1,3 @@
-const { nextSuccessor } = require('./node/nodeData');
 const {
 	parseInputFile,
 	spawnNode,
@@ -15,7 +14,7 @@ async function bootstrap() {
 
 	gatewayNode = nodes[0];
 
-	for (const [index, node] of nodes.sort(((a, b) => a - b)).entries()) {
+	for (const node of nodes) {
 		const nodeShortcuts = shortcuts.filter(
 			(shortcut) => shortcut.start === node
 		);
@@ -27,12 +26,9 @@ async function bootstrap() {
 			shortcuts: JSON.stringify(nodeShortcuts),
 			keySpace: JSON.stringify(keySpace),
 			gatewayNode,
-			successor: index === nodes.length - 1 ? nodes[0] : nodes[index + 1],
-			nextSuccessor: index === nodes.length - 2 ? nodes[0]
-				: index === nodes.length - 1 ? nodes[1] : nodes[index + 2]
 		});
 
-		await delay(200);
+		await delay(500);
 	}
 }
 

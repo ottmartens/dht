@@ -1,8 +1,14 @@
 const { exec } = require('child_process');
 const logger = require('./logger');
-const path = require('path');
 
-module.exports = function spawnNode({ id, shortcuts, keySpace, gatewayNode, successor, nextSuccessor }) {
+module.exports = function spawnNode({
+	id,
+	shortcuts,
+	keySpace,
+	gatewayNode,
+	successor,
+	nextSuccessor,
+}) {
 	const nodeProcess = exec(
 		`node  ./src/node/index.js`,
 		{

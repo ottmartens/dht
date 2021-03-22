@@ -6,17 +6,22 @@ module.exports = async (req, res) => {
 	logger.debug('Listing all nodes from ' + id);
 
 	try {
-		const response = await axios.get(`http://localhost:${3000 + successor}/list-nodes?origin=${id}`)
+		const response = await axios.get(
+			`http://localhost:${3000 + successor}/list-nodes?origin=${id}`
+		);
 		res.send(
-			response.data.concat([{
-				node: id,
-				shortcuts,
-				successor,
-				nextSuccessor
-			}]).sort((a, b) => a.node - b.node)
-		)
+			response.data
+				.concat([
+					{
+						node: id,
+						shortcuts,
+						successor,
+						nextSuccessor,
+					},
+				])
+				.sort((a, b) => a.node - b.node)
+		);
 	} catch (err) {
 		logger.error(err);
 	}
-
 };

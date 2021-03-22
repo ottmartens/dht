@@ -1,11 +1,31 @@
+const nodeData = {
+	id: Number(process.env.id),
+	successor: null,
+	nextSuccessor: null,
+
+	keySpace: process.env.keySpace ? JSON.parse(process.env.keySpace): null,
+	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : null,
+};
 
 module.exports = {
-	id: Number(process.env.id),
-	keySpace: process.env.keySpace ? JSON.parse(process.env.keySpace): "",
-	successor: Number(process.env.successor),
-	nextSuccessor: Number(process.env.nextSuccessor),
-	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : "",
-	setSuccessor: (successor) => {
-		this.successor = successor;
+	id: nodeData.id,
+	set successor(successor) {
+		nodeData.successor = successor;
 	},
-};;
+	set nextSuccessor(nextSuccessor) {
+		nodeData.nextSuccessor = nextSuccessor;
+	},
+	get successor() {
+		return nodeData.successor;
+	},
+	get nextSuccessor() {
+		return nodeData.nextSuccessor;
+	},
+
+	get keySpace() {
+		return nodeData.keySpace;
+	},
+	get shortcuts() {
+		return nodeData.shortcuts;
+	},
+};

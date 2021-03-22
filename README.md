@@ -12,4 +12,7 @@ run `npm install`
 
 `npm start input.txt`
 
+### Cli
+`cd cli`
+`node cli.js list <nodeId>`
 

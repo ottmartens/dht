@@ -13,7 +13,7 @@ async function executeCommand(args) {
 	const command = commands[commandName];
 
 	if (!command) {
-		console.log('\n Usage: ');
+		console.log('\n No such command. Usage: ');
 		printHelp();
 		return;
 	}
@@ -22,7 +22,7 @@ async function executeCommand(args) {
 	if (!validArgs) {
 		console.log(`Invalid arguments for ${commandName}`);
 
-		console.log('\nUsage: ');
+		console.log('\n Usage: ');
 		printHelp();
 		return;
 	}

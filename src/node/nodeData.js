@@ -3,7 +3,7 @@ const nodeData = {
 	successor: null,
 	nextSuccessor: null,
 
-	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : '',
+	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : null,
 };
 
 module.exports = {

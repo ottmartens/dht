@@ -49,55 +49,73 @@ module.exports = {
 	},
 
 	list: {
-		args: ['node id'],
-		validate: (commandArgs) => {
-			return commandArgs.length === 1 && !isNaN(Number(commandArgs[0]));
+		args: [],
+		validate: () => {
+			return true;
 		},
-		handler: async (nodeId) => {
-			const id = Number(nodeId);
+		handler: async () => {
+			const gatewayNode = Number(stats.getNodes()[0]);
 			try {
-				const response = await axios.get(`${getUrlForNode(id)}/list`);
-				response.data.forEach(node => {
-					console.log(`${node.node}:${node.shortcuts.map(shortcut => shortcut.end).join(",")}, S-${node.successor}, NS-${node.nextSuccessor}`)
+				const response = await axios.get(`${getUrlForNode(gatewayNode)}/list`);
+                console.log('');
+				response.data.forEach((node) => {
+					console.log(
+						`${node.node}:${node.shortcuts
+							.map((shortcut) => shortcut.end)
+							.join(',')}, S-${node.successor}, NS-${node.nextSuccessor}`
+					);
 				});
 			} catch (err) {
 				logger.error(err);
-			}	
+			}
 		},
 	},
 
 	lookup: {
 		args: ['target id', 'node id'],
 		validate: (commandArgs) => {
-			return commandArgs.length === 2 && !isNaN(Number(commandArgs[0])) && !isNaN(Number(commandArgs[1]));
+			return (
+				commandArgs.length === 2 &&
+				!isNaN(Number(commandArgs[0])) &&
+				!isNaN(Number(commandArgs[1]))
+			);
 		},
 		handler: async (targetId, nodeId) => {
 			const id = Number(nodeId);
 			const target = Number(targetId);
 			try {
-				const response = await axios.get(`${getUrlForNode(id)}/lookup?target=${target}`);
-				console.log(response.data)
+				const response = await axios.get(
+					`${getUrlForNode(id)}/lookup?target=${target}`
+				);
+				console.log(response.data);
 			} catch (err) {
 				logger.error(err);
-			}	
+			}
 		},
 	},
 
 	shortcut: {
 		args: ['from id', 'to id', 'node id'],
 		validate: (commandArgs) => {
-			return commandArgs.length === 3 && !isNaN(Number(commandArgs[0])) && !isNaN(Number(commandArgs[1])) && !isNaN(Number(commandArgs[2]));
+			return (
+				commandArgs.length === 3 &&
+				!isNaN(Number(commandArgs[0])) &&
+				!isNaN(Number(commandArgs[1])) &&
+				!isNaN(Number(commandArgs[2]))
+			);
 		},
 		handler: async (fromId, toId, nodeId) => {
 			const from = Number(fromId);
 			const to = Number(toId);
 			const id = Number(nodeId);
 			try {
-				const response = await axios.get(`${getUrlForNode(id)}/new-shortcut?from=${from}&to=${to}`);
-				console.log(response.data)
+				const response = await axios.get(
+					`${getUrlForNode(id)}/new-shortcut?from=${from}&to=${to}`
+				);
+				console.log(response.data);
 			} catch (err) {
 				logger.error(err);
-			}	
+			}
 		},
 	},
 };

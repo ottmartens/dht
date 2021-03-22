@@ -1,4 +1,5 @@
 const logger = require('../utils/logger');
+const { delay } = require('../utils/helpers');
 const commands = require('./commands');
 
 function printHelp() {
@@ -29,7 +30,9 @@ async function executeCommand(args) {
 
 	await command.handler(...commandArgs);
 
-	console.log('\nExecuted successfully. Reacy to accept new command');
+	await delay(100);
+
+	console.log('\nExecuted successfully. Ready to accept new command');
 }
 
 function run() {

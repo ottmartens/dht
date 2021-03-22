@@ -12,21 +12,25 @@ module.exports = async (req, res) => {
 	};
 
 	if (Number(req.query.origin) !== nodeData.successor) {
-		logger.debug('Listing all nodes from origin ' + req.query.origin);
+		logger.debug('Responding to listing');
+
 		try {
 			const response = await axios.get(
-				`${getUrlForNode(nodeData.successor)}/list-nodes`, {
-				params: {
-					origin: req.query.origin
+				`${getUrlForNode(nodeData.successor)}/list-nodes`,
+				{
+					params: {
+						origin: req.query.origin,
+					},
 				}
-			}
 			);
 			res.send(response.data.concat([nodeObject]));
 		} catch (err) {
 			logger.error(err);
 		}
 	} else {
-		logger.debug('Reached the end because the successor is node ' + nodeData.successor);
+		logger.debug(
+			'Reached the end because the successor is node ' + nodeData.successor
+		);
 		res.send([nodeObject]);
 	}
 };

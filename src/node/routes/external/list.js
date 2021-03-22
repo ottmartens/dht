@@ -4,7 +4,7 @@ const axios = require('axios');
 const { getUrlForNode } = require('../../utils/helpers');
 
 module.exports = async (req, res) => {
-	logger.debug('Listing all nodes from ' + nodeData.id);
+	logger.debug('Responding to listing all nodes from ' + nodeData.id);
 
 	try {
 		const response = await axios.get(

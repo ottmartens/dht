@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
 		//because in the previous statement we eliminated the possibility of the shortcut being bigger than the target
 
 		try {
-			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/node`,
+			const response = await axios.get(`${getUrlForNode(usableShortcut || nodeData.successor)}/lookup`,
 				{
 					params: {
 						target,

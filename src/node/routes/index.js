@@ -1,7 +1,7 @@
 module.exports = (app) => {
 	// external endpoints
-	app.get('/node', require('./external/node'));
-	app.get('/nodes', require('./external/nodes'));
+	app.get('/lookup', require('./external/lookup'));
+	app.get('/list', require('./external/list'));
 	app.post('/leave', require('./external/leave'));
 
 	// internal endpoints for node-to-node communication

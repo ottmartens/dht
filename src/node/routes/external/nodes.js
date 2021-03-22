@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 				shortcuts,
 				successor,
 				nextSuccessor
-			}])
+			}]).sort((a, b) => a.node - b.node)
 		)
 	} catch (err) {
 		logger.error(err);

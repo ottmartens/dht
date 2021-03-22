@@ -25,7 +25,7 @@ async function bootstrap() {
 		spawnNode({
 			id: node,
 			shortcuts: JSON.stringify(nodeShortcuts),
-			keySpace,
+			keySpace: JSON.stringify(keySpace),
 			gatewayNode,
 			successor: index === nodes.length - 1 ? nodes[0] : nodes[index + 1],
 			nextSuccessor: index === nodes.length - 2 ? nodes[0]

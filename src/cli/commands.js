@@ -31,7 +31,7 @@ module.exports = {
 
 			stats.setNodes(stats.getNodes().concat([id]));
 
-            await delay(200);
+			await delay(200);
 		},
 	},
 
@@ -75,24 +75,28 @@ module.exports = {
 	},
 
 	lookup: {
-		args: ['target id', 'node id'],
+		args: ['target id:[node id - optional]'],
 		validate: (commandArgs) => {
-			return (
-				commandArgs.length === 2 &&
-				!isNaN(Number(commandArgs[0])) &&
-				!isNaN(Number(commandArgs[1]))
-			);
+			if (commandArgs.length !== 1) {
+				return false;
+			}
+
+			const numbers = commandArgs[0].split(':');
+
+			return numbers.length <= 2 && !isNaN(Number(numbers[0]));
 		},
-		handler: async (targetId, nodeId) => {
-			const id = Number(nodeId);
+		handler: async (numbers) => {
+			const [targetId, nodeId] = numbers.split(':');
+
 			const target = Number(targetId);
+			const id = nodeId ? Number(nodeId) : Number(stats.getNodes()[0]);
 			try {
 				const response = await axios.get(
 					`${getUrlForNode(id)}/lookup?target=${target}`
 				);
 				console.log(response.data);
 			} catch (err) {
-				logger.error(err);
+				logger.error(`Cannot perform lookup - ${err}`);
 			}
 		},
 	},

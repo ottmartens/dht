@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 
 		let response;
 
-		if (isLastNode(gatewayNode)) {
+		if (isLastNodeBeforeGateway(gatewayNode)) {
 			response = [nodeData.id];
 		} else {
 			const { data } = await axios.post(
@@ -54,8 +54,8 @@ function updateSuccessorsIfNeeded(newNode) {
 	logger.debug(`successors: ${nodeData.successor}, ${nodeData.nextSuccessor}`);
 }
 
-function isLastNode(gatewayNode) {
-	return nodeData.successor === gatewayNode || !nodeData.successor;
+function isLastNodeBeforeGateway(gatewayNode) {
+	return nodeData.successor === gatewayNode || isSecondNodeJoining();
 }
 
 function isSecondNodeJoining() {

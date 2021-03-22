@@ -38,7 +38,9 @@ program
     .action(async (nodeId, options) => {
 
         const response = await axios.get(`http://localhost:${3000 + Number(nodeId)}/nodes`)
-        console.log(response.data)
+        response.data.forEach(node => {
+            console.log(`${node.node}:${node.shortcuts.map(shortcut => shortcut.end).join(",")}, S-${node.successor}, NS-${node.nextSuccessor}`)
+        });
     });
 
 

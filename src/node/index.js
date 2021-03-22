@@ -1,11 +1,12 @@
 const logger = require('../utils/logger');
 const express = require('express');
 
-const { id, successor, nextSuccessor } = require('./nodeData');
-console.log(`I am ${id}, my successor is ${successor}, my next successor is ${nextSuccessor}`);
+const { id } = require('./nodeData');
+
 const broadcastJoining = require('./broadcastJoining');
 
 const app = express();
+app.use(express.json());
 
 require('./routes')(app);
 

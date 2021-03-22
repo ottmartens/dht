@@ -4,6 +4,7 @@ const spawnNode = require('../utils/spawnNode');
 const { getUrlForNode } = require('../node/utils/helpers');
 const stats = require('../currentStats');
 const logger = require('../utils/logger');
+const { delay } = require('../utils/helpers');
 
 module.exports = {
 	join: {
@@ -29,6 +30,8 @@ module.exports = {
 			});
 
 			stats.setNodes(stats.getNodes().concat([id]));
+
+            await delay(200);
 		},
 	},
 
@@ -57,7 +60,7 @@ module.exports = {
 			const gatewayNode = Number(stats.getNodes()[0]);
 			try {
 				const response = await axios.get(`${getUrlForNode(gatewayNode)}/list`);
-                console.log('');
+				console.log('');
 				response.data.forEach((node) => {
 					console.log(
 						`${node.node}:${node.shortcuts
@@ -95,24 +98,24 @@ module.exports = {
 	},
 
 	shortcut: {
-		args: ['from id', 'to id', 'node id'],
+		args: ['from id', 'to id'],
 		validate: (commandArgs) => {
 			return (
-				commandArgs.length === 3 &&
+				commandArgs.length === 2 &&
 				!isNaN(Number(commandArgs[0])) &&
-				!isNaN(Number(commandArgs[1])) &&
-				!isNaN(Number(commandArgs[2]))
+				!isNaN(Number(commandArgs[1]))
 			);
 		},
-		handler: async (fromId, toId, nodeId) => {
+		handler: async (fromId, toId) => {
 			const from = Number(fromId);
 			const to = Number(toId);
-			const id = Number(nodeId);
+
+			const gatewayNode = Number(stats.getNodes()[0]);
+
 			try {
-				const response = await axios.get(
-					`${getUrlForNode(id)}/new-shortcut?from=${from}&to=${to}`
+				await axios.get(
+					`${getUrlForNode(gatewayNode)}/new-shortcut?from=${from}&to=${to}`
 				);
-				console.log(response.data);
 			} catch (err) {
 				logger.error(err);
 			}

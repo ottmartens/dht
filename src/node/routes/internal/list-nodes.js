@@ -28,9 +28,7 @@ module.exports = async (req, res) => {
 			logger.error(err);
 		}
 	} else {
-		logger.debug(
-			'Reached the end because the successor is node ' + nodeData.successor
-		);
+		logger.debug('Responding to listing, last node');
 		res.send([nodeObject]);
 	}
 };

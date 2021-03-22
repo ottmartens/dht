@@ -32,7 +32,7 @@ async function executeCommand(args) {
 
 	await delay(100);
 
-	console.log('\nExecuted successfully. Ready to accept new command');
+	console.log('\nExecuted successfully. Ready to accept new command \n');
 }
 
 function run() {

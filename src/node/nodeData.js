@@ -4,7 +4,7 @@ const nodeData = {
 	nextSuccessor: null,
 
 	keySpace: process.env.keySpace ? JSON.parse(process.env.keySpace) : null,
-	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : null,
+	shortcuts: process.env.shortcuts ? JSON.parse(process.env.shortcuts) : [],
 };
 
 module.exports = {

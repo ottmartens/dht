@@ -52,6 +52,7 @@ function run() {
 
 	console.log('\n Now ready to accept commands. Available commands:');
 	printHelp();
+    console.log('');
 }
 
 module.exports = {

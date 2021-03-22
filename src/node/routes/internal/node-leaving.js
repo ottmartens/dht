@@ -15,7 +15,9 @@ module.exports = async (req, res) => {
 
 	updateSuccessorsIfNeeded(leavingNode);
 
-	// TODO: clean shortcuts if has shortcut to leaving node
+	nodeData.shortcuts = nodeData.shortcuts.filter(
+		(shortcut) => shortcut.end !== Number(leavingNode.id)
+	);
 
 	res.sendStatus(200);
 };

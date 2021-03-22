@@ -1,8 +1,0 @@
-#---here starts the file--
-#key-space
-1, 100
-#nodes
-5, 56
-#shortcuts
-5:56
-#---here end the file--

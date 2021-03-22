@@ -4,7 +4,7 @@ Distributed hash table
 
 ### Implementation details
 
-The nodes are started as separate nodeJs processes. The nodes communicate via rest endpoints.
+The nodes are started as separate nodeJs processes. The nodes communicate via rest endpoint calls.
 
 There are two distinct types of endpoints - internal and external. The external enpoints are called by the cli process to orchestrate passing the commands to nodes. The internal enpoints are used by the nodes to coordinate the actions among themselves.
 

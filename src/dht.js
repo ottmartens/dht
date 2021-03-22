@@ -5,17 +5,24 @@ const {
 	helpers: { delay },
 } = require('./utils');
 
-let gatewayNode = null;
+const cli = require('./cli');
+
+const stats = require('./currentStats');
 
 async function bootstrap() {
 	const inputFile = process.argv[2];
 
-	const { keySpace, nodes, shortcuts } = await parseInputFile(inputFile);
+	const input = await parseInputFile(inputFile);
 
-	gatewayNode = nodes[0];
+	stats.setNodes(input.nodes);
+	stats.setKeySpace(input.keySpace);
 
-	for (const node of nodes) {
-		const nodeShortcuts = shortcuts.filter(
+	const initialShortcurs = input.shortcuts;
+
+	const gatewayNode = stats.getNodes()[0];
+
+	for (const node of stats.getNodes()) {
+		const nodeShortcuts = initialShortcurs.filter(
 			(shortcut) => shortcut.start === node
 		);
 
@@ -24,7 +31,7 @@ async function bootstrap() {
 		spawnNode({
 			id: node,
 			shortcuts: JSON.stringify(nodeShortcuts),
-			keySpace: JSON.stringify(keySpace),
+			keySpace: JSON.stringify(stats.getKeySpace()),
 			gatewayNode,
 		});
 
@@ -32,4 +39,9 @@ async function bootstrap() {
 	}
 }
 
-bootstrap();
+async function main() {
+	await bootstrap();
+	cli.run();
+}
+
+main();

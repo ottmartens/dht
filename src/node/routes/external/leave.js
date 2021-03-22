@@ -7,6 +7,12 @@ const { getUrlForNode } = require('../../utils/helpers');
 // meant to be called at the node that will leave
 module.exports = async (req, res) => {
 	try {
+		if (oneNodeLeft()) {
+            logger.warn('Cannot leave as the last node')
+			res.sendStatus(200);
+            return;
+		}
+
 		logger.info('Preparing to leave, dispatching leaving message');
 
 		await axios.post(`${getUrlForNode(nodeData.successor)}/node-leaving`, {
@@ -25,3 +31,9 @@ module.exports = async (req, res) => {
 		res.sendStatus(500);
 	}
 };
+
+function oneNodeLeft() {
+	return (
+		nodeData.id === nodeData.successor && nodeData.id === nodeData.nextSuccessor
+	);
+}

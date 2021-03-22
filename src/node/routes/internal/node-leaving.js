@@ -21,6 +21,27 @@ module.exports = async (req, res) => {
 };
 
 function updateSuccessorsIfNeeded(leavingNode) {
+	if (twoNodesLeft()) {
+		nodeData.successor = nodeData.id;
+		logger.debug(
+			`updated successors: ${nodeData.successor}, ${nodeData.nextSuccessor}`
+		);
+		return;
+	}
+
+	if (threeNodesLeft()) {
+		if (leavingNode.id == nodeData.successor) {
+			nodeData.successor = nodeData.nextSuccessor;
+			nodeData.nextSuccessor = nodeData.id;
+		} else if (leavingNode.id === nodeData.nextSuccessor) {
+			nodeData.nextSuccessor = nodeData.id;
+		}
+		logger.debug(
+			`updated successors: ${nodeData.successor}, ${nodeData.nextSuccessor}`
+		);
+		return;
+	}
+
 	if (nodeData.successor === leavingNode.id) {
 		nodeData.successor = nodeData.nextSuccessor;
 		nodeData.nextSuccessor = leavingNode.nextSuccessor;
@@ -28,10 +49,24 @@ function updateSuccessorsIfNeeded(leavingNode) {
 			`updated successors: ${nodeData.successor}, ${nodeData.nextSuccessor}`
 		);
 		return;
-	} else if (nodeData.nextSuccessor === leavingNode.id) {
+	}
+
+	if (nodeData.nextSuccessor === leavingNode.id) {
 		nodeData.nextSuccessor = leavingNode.successor;
 		logger.debug(
 			`updated successors: ${nodeData.successor}, ${nodeData.nextSuccessor}`
 		);
+
+		return;
 	}
+}
+
+function twoNodesLeft() {
+	return (
+		nodeData.id !== nodeData.successor && nodeData.id === nodeData.nextSuccessor
+	);
+}
+
+function threeNodesLeft() {
+	return nodeData.id === nodeData.nextSuccessor;
 }
